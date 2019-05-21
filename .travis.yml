@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t thinkpiece/udemy-docker-complex -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run thinkpiece/udemy-docker-complex npm run test:ci
+
+after_success:
+  - docker build -t thinkpiece/udemy-docker-complex-client ./client
+  - docker build -t thinkpiece/udemy-docker-complex-nginx ./nginx
+  - docker build -t thinkpiece/udemy-docker-complex-server ./server
+  - docker build -t thinkpiece/udemy-docker-complex-worker ./worker
+  - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push thinkpiece/udemy-docker-complex-client
+  - docker push thinkpiece/udemy-docker-complex-nginx
+  - docker push thinkpiece/udemy-docker-complex-worker
+  - docker push thinkpiece/udemy-docker-complex-server
+
