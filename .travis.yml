@@ -19,3 +19,18 @@ after_success:
   - docker push thinkpiece/udemy-docker-complex-worker
   - docker push thinkpiece/udemy-docker-complex-server
 
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: complex
+  environment: Complex-env
+  bucket_name: elasticbeanstalk-us-east-1-382230010946
+  bucket_path: complex
+  on:
+    branch: master
+
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
+
+    
