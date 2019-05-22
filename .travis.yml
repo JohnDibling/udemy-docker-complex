@@ -23,7 +23,7 @@ deploy:
   provider: elasticbeanstalk
   region: us-east-1
   app: complex
-  environment: Complex-env
+  env: Complex-env
   bucket_name: elasticbeanstalk-us-east-1-382230010946
   bucket_path: complex
   on:
@@ -33,4 +33,3 @@ deploy:
   secret_access_key:
     secure: $AWS_SECRET_KEY
 
-    
